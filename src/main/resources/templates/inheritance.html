@@ -1,0 +1,29 @@
+{{<templates/inheritance_layout}}
+{{$content}}
+
+Dear {{#name}}{{.}}{{/name}}{{^name}}sir{{/name}},
+
+{{^items.empty}}
+here are the items you ordered ({{items.size}}):
+
+<table>
+    {{#items}}
+    <tr>
+        <td>{{&name}}</td>
+        <td>{{price}}</td>
+        <td>{{#toy}}min.age: {{minAge}}{{/toy}}{{^toy}}origin: {{origin.country}}{{/toy}}</td>
+    </tr>
+    {{/items}}
+</table>
+{{/items.empty}}
+{{^items}}
+No ordered items.
+{{/items}}
+
+{{/content}}
+
+{{$footer}}
+Yours
+Trimou
+{{/footer}}
+{{/templates/inheritance_layout}}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Trimou Benchmark - Basic</title>
+</head>
+<body>
+
+Dear {{#name}}{{.}}{{/name}}{{^name}}sir{{/name}},
+
+{{^items.empty}}
+here are the items you ordered ({{items.size}}):
+
+<table>
+    {{#items}}
+        {{>templates/basic_item_row}}
+    {{/items}}
+</table>
+{{/items.empty}}
+{{^items}}
+No ordered items.
+{{/items}}
+
+Yours
+Trimou
+
+</body>
+</html>
