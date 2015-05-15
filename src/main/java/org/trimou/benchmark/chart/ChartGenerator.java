@@ -73,6 +73,7 @@ public class ChartGenerator {
 
             List<String> benchmars = new ArrayList<String>();
             List<BigDecimal> scores = new ArrayList<BigDecimal>();
+            List<BigDecimal> errors = new ArrayList<BigDecimal>();
 
             for (JsonElement jsonElement : series) {
                 JsonObject benchmark = jsonElement.getAsJsonObject();
@@ -81,8 +82,9 @@ public class ChartGenerator {
                 benchmarkName = benchmarkName.substring(benchmarkName.lastIndexOf('.') + 1, benchmarkName.length());
                 benchmars.add(benchmarkName);
                 scores.add(benchmark.get("primaryMetric").getAsJsonObject().get("score").getAsBigDecimal());
+                errors.add(benchmark.get("primaryMetric").getAsJsonObject().get("scoreError").getAsBigDecimal());
             }
-            chart.addSeries(file.getName().replace("results-", "").replace(".json", ""), benchmars, scores);
+            chart.addSeries(file.getName().replace("results-", "").replace(".json", ""), benchmars, scores, errors);
         }
 
         // Save as png

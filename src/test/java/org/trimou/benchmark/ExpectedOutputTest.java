@@ -29,15 +29,15 @@ public class ExpectedOutputTest {
     }
 
     @Test
-    public void testBasicHelper() throws IOException {
-        BasicHelper benchmark = new BasicHelper();
+    public void testHelper() throws IOException {
+        Helper benchmark = new Helper();
         benchmark.setup();
         assertOutput("/expected_basic.html", benchmark.render());
     }
 
     @Test
     public void testPartial() throws IOException {
-        BasicPartial benchmark = new BasicPartial();
+        Partial benchmark = new Partial();
         benchmark.setup();
         assertOutput("/expected_basic.html", benchmark.render());
     }

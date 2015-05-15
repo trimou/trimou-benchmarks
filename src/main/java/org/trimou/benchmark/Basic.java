@@ -57,14 +57,14 @@ public class Basic extends BenchmarkBase {
         if (idx % 2 == 0) {
             Toy toy = new Toy();
             toy.setName("" + idx);
-            toy.setPrice(new BigDecimal("5000"));
+            toy.setPrice(new BigDecimal(idx * 1000));
             toy.setMinAge(10);
             return toy;
         } else {
             Food food = new Food();
             food.setName("" + idx);
-            food.setPrice(new BigDecimal("2000"));
-            food.setOrigin(new Origin("C10"));
+            food.setPrice(new BigDecimal(idx * 1000));
+            food.setOrigin(new Origin("cell " + idx));
             return food;
         }
     }

@@ -4,10 +4,10 @@ package org.trimou.benchmark;
  *
  * @author Martin Kouba
  */
-public class BasicPartial extends Basic {
+public class Helper extends Basic {
 
     protected String getMustacheName() {
-        return "templates/basic_partial";
+        return "templates/basic_helper";
     }
 
 }
