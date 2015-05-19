@@ -29,6 +29,13 @@ public class ExpectedOutputTest {
     }
 
     @Test
+    public void testDataHierarchy() throws IOException {
+        DataHierarchy benchmark = new DataHierarchy();
+        benchmark.setup();
+        assertOutput("/expected_basic_data_hierarchy.html", benchmark.render());
+    }
+
+    @Test
     public void testHelper() throws IOException {
         Helper benchmark = new Helper();
         benchmark.setup();
@@ -44,9 +51,28 @@ public class ExpectedOutputTest {
 
     @Test
     public void testInheritance() throws IOException {
-        Inheritance benchmark = new Inheritance();
+        TemplateInheritance benchmark = new TemplateInheritance();
         benchmark.setup();
         assertOutput("/expected_inheritance.html", benchmark.render());
+    }
+
+    @Test
+    public void testDemanding() throws IOException {
+        Demanding benchmark = new Demanding();
+        benchmark.setup();
+        assertOutput("/expected_demanding.html", benchmark.render());
+    }
+
+    @Test
+    public void testDemandingAsync() throws IOException {
+        DemandingAsync benchmark = new DemandingAsync();
+        try {
+            benchmark.setup();
+            assertOutput("/expected_demanding.html", benchmark.render());
+            benchmark.tearDown();
+        } catch (Exception e) {
+            // Ignore
+        }
     }
 
     private void assertOutput(String expectedOutputFile, String actual) throws IOException {

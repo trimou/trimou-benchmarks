@@ -2,18 +2,24 @@ package org.trimou.benchmark;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.openjdk.jmh.annotations.Setup;
 import org.trimou.Mustache;
-import org.trimou.benchmark.data.Food;
 import org.trimou.benchmark.data.Item;
-import org.trimou.benchmark.data.Origin;
-import org.trimou.benchmark.data.Toy;
 import org.trimou.engine.MustacheEngineBuilder;
+import org.trimou.engine.config.Configuration;
+import org.trimou.engine.config.ConfigurationKey;
+import org.trimou.engine.locale.LocaleSupport;
 import org.trimou.engine.locator.ClassPathTemplateLocator;
+import org.trimou.handlebars.HelpersBuilder;
+import org.trimou.handlebars.i18n.DateTimeFormatHelper;
 
 /**
  *
@@ -27,7 +33,26 @@ public class Basic extends BenchmarkBase {
 
     @Setup
     public void setup() {
-        mustache = MustacheEngineBuilder.newBuilder().addTemplateLocator(new ClassPathTemplateLocator(1, null, "html")).build().getMustache(getMustacheName());
+        MustacheEngineBuilder builder = MustacheEngineBuilder.newBuilder();
+        builder.addTemplateLocator(new ClassPathTemplateLocator(1, null, "html"));
+        builder.setLocaleSupport(new LocaleSupport() {
+            @Override
+            public void init(Configuration configuration) {
+            }
+
+            @Override
+            public Set<ConfigurationKey> getConfigurationKeys() {
+                return Collections.emptySet();
+            }
+
+            @Override
+            public Locale getCurrentLocale() {
+                return Locale.ENGLISH;
+            }
+        });
+        builder.registerHelpers(HelpersBuilder.extra().build()).registerHelper("dateTime", new DateTimeFormatHelper());
+        customizeMustacheEngineBuilder(builder);
+        mustache = builder.build().getMustache(getMustacheName());
 
         testData = new HashMap<String, Object>();
         int count = 15;
@@ -37,6 +62,9 @@ public class Basic extends BenchmarkBase {
         }
         testData.put("items", items);
         testData.put("name", "Foo");
+    }
+
+    protected void customizeMustacheEngineBuilder(MustacheEngineBuilder builder) {
     }
 
     protected String getMustacheName() {
@@ -53,20 +81,22 @@ public class Basic extends BenchmarkBase {
         return testData;
     }
 
-    private Item generateItem(int idx) {
-        if (idx % 2 == 0) {
-            Toy toy = new Toy();
-            toy.setName("" + idx);
-            toy.setPrice(new BigDecimal(idx * 1000));
-            toy.setMinAge(10);
-            return toy;
-        } else {
-            Food food = new Food();
-            food.setName("" + idx);
-            food.setPrice(new BigDecimal(idx * 1000));
-            food.setOrigin(new Origin("cell " + idx));
-            return food;
-        }
+    protected Item generateItem(int idx) {
+        Item item = new Item();
+        item.setId(Long.valueOf(idx * 10));
+        item.setName("" + idx);
+        item.setPrice(new BigDecimal(idx * 1000));
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2015);
+        cal.set(Calendar.MONTH, 1);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        item.setCreated(cal.getTime());
+        item.setDescription(String.format("Item %s with price %s (created at %s)", item.getId(), item.getPrice(), item.getCreated()));
+        return item;
     }
 
 }

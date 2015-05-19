@@ -10,9 +10,10 @@ here are the items you ordered ({{items.size}}):
     {{#items}}
     <tr>
         <td>{{iterIndex}}.</td>
-        <td>{{&name}}</td>
-        <td>{{price}}</td>
-        <td>{{#toy}}min.age: {{minAge}}{{/toy}}{{^toy}}origin: {{origin.country}}{{/toy}}</td>
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+        <td>{{#hasPrice}}{{price}}{{/hasPrice}}</td>
+        <td>{{created.time}}</td>
     </tr>
     {{/items}}
 </table>
@@ -20,7 +21,6 @@ here are the items you ordered ({{items.size}}):
 {{^items}}
 No ordered items.
 {{/items}}
-
 {{/content}}
 
 {{$footer}}

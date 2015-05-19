@@ -10,7 +10,13 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -63,28 +69,47 @@ public class ChartGenerator {
             }
         });
 
-        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(1024).height(768).title("Trimou Microbenchmarks").xAxisTitle("Benchmark")
+        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(1280).height(1024).title("Trimou Microbenchmarks").xAxisTitle("Benchmarks")
                 .yAxisTitle("Ops/s").build();
         chart.getStyleManager().setXAxisTicksVisible(true);
 
+        Set<String> allBenchmarks = new LinkedHashSet<String>();
+        Map<String, Map<String, JsonObject>> seriesMap = new LinkedHashMap<String, Map<String, JsonObject>>();
+
         for (File file : files) {
-
+            Map<String, JsonObject> benchmarkMap = new HashMap<String, JsonObject>();
             JsonArray series = readJsonElementFromFile(file).getAsJsonArray();
-
-            List<String> benchmars = new ArrayList<String>();
-            List<BigDecimal> scores = new ArrayList<BigDecimal>();
-            List<BigDecimal> errors = new ArrayList<BigDecimal>();
-
             for (JsonElement jsonElement : series) {
                 JsonObject benchmark = jsonElement.getAsJsonObject();
                 String benchmarkName = benchmark.get("benchmark").getAsString();
                 benchmarkName = benchmarkName.substring(0, benchmarkName.lastIndexOf('.'));
                 benchmarkName = benchmarkName.substring(benchmarkName.lastIndexOf('.') + 1, benchmarkName.length());
-                benchmars.add(benchmarkName);
-                scores.add(benchmark.get("primaryMetric").getAsJsonObject().get("score").getAsBigDecimal());
-                errors.add(benchmark.get("primaryMetric").getAsJsonObject().get("scoreError").getAsBigDecimal());
+                allBenchmarks.add(benchmarkName);
+                benchmarkMap.put(benchmarkName, benchmark);
             }
-            chart.addSeries(file.getName().replace("results-", "").replace(".json", ""), benchmars, scores, errors);
+            seriesMap.put(file.getName().replace("results-", "").replace(".json", ""), benchmarkMap);
+        }
+
+        List<String> sortedBenchmarks = new ArrayList<String>(allBenchmarks);
+        Collections.sort(sortedBenchmarks);
+
+        for (Entry<String, Map<String, JsonObject>> series : seriesMap.entrySet()) {
+            List<String> benchmarks = new ArrayList<String>();
+            List<BigDecimal> scores = new ArrayList<BigDecimal>();
+            List<BigDecimal> errors = new ArrayList<BigDecimal>();
+
+            for (String benchmarkName : sortedBenchmarks) {
+                benchmarks.add(benchmarkName);
+                JsonObject benchmark = series.getValue().get(benchmarkName);
+                if (benchmark != null) {
+                    scores.add(benchmark.get("primaryMetric").getAsJsonObject().get("score").getAsBigDecimal());
+                    errors.add(benchmark.get("primaryMetric").getAsJsonObject().get("scoreError").getAsBigDecimal());
+                } else {
+                    scores.add(BigDecimal.ZERO);
+                    errors.add(BigDecimal.ZERO);
+                }
+            }
+            chart.addSeries(series.getKey(), benchmarks, scores, errors);
         }
 
         // Save as png

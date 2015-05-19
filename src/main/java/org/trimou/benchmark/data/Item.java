@@ -1,35 +1,66 @@
 package org.trimou.benchmark.data;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
-public abstract class Item {
+public class Item {
 
-	public String name;
+    private Long id;
 
-	public BigDecimal price;
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    private BigDecimal price;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private Date created;
 
-	public BigDecimal getPrice() {
-		return price;
-	}
+    private String description;
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public boolean hasPrice() {
-		return price != null;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public boolean isToy() {
-		return this instanceof Toy;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public boolean hasPrice() {
+        return price != null;
+    }
+
+    public boolean isToy() {
+        return this instanceof Toy;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }

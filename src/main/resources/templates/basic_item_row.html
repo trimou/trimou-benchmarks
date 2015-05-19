@@ -1,7 +1,7 @@
 <tr>
   <td>{{iterIndex}}.</td>
+  <td>{{id}}</td>
   <td>{{name}}</td>
-  <td>{{price}}</td>
-  <td>{{#toy}}min.age: {{minAge}}{{/toy}}{{^toy}}origin:
-    {{origin.country}}{{/toy}}</td>
+  <td>{{#hasPrice}}{{price}}{{/hasPrice}}</td>
+  <td>{{created.time}}</td>
 </tr>
