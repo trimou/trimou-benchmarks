@@ -5,45 +5,10 @@
 <title>Trimou Benchmark - Demanding</title>
 </head>
 <body>
-m
-Dear {{#name}}{{.}}{{/name}}{{^name}}sir{{/name}},
 
-{{^items.empty}}
-here are the items you ordered ({{items.size}}):
-
-<table>
-    {{#items}}
-    <tr>
-        <td>{{iter.index}}.</td>
-        <td>{{id}}</td>
-        <td>{{#name}}{{this}}{{/name}}</td>
-        <td>{{#hasPrice}}{{price}}{{/hasPrice}}</td>
-        <td>{{dateTime created style="full"}}</td>
-        <td>{{description.toLowerCase}}</td>
-    </tr>
-    {{/items}}
-</table>
-<table>
-    {{#items}}
-    {{#iter.isOdd}}
-    <tr>
-        <td>{{iter.index}}.</td>
-        <td>{{id}}</td>
-        <td>{{#name}}{{this}}{{/name}}</td>
-        <td>{{#hasPrice}}{{price}}{{/hasPrice}}</td>
-        <td>{{dateTime created style="full"}}</td>
-        <td>{{description.toUpperCase}}</td>
-    </tr>
-    {{/iter.isOdd}}
-    {{/items}}
-</table>
-{{/items.empty}}
-{{^items}}
-No ordered items.
-{{/items}}
-
-Yours
-Trimou
+{{>templates/demanding_loop}}
+{{>templates/demanding_loop}}
+{{>templates/demanding_loop}}
 
 </body>
 </html>

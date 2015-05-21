@@ -11,12 +11,13 @@ import org.trimou.engine.MustacheEngineBuilder;
  *
  * @author Martin Kouba
  */
-public class DemandingAsync extends Basic {
+public class DemandingAsync extends Demanding {
 
     private ExecutorService executorService;
 
     @Override
     protected void customizeMustacheEngineBuilder(MustacheEngineBuilder builder) {
+        super.customizeMustacheEngineBuilder(builder);
         Method method;
         try {
             method = MustacheEngineBuilder.class.getMethod("setExecutorService", ExecutorService.class);

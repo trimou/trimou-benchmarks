@@ -30,12 +30,12 @@ public class DataHierarchy extends Basic {
         cal.set(Calendar.YEAR, 2015);
         cal.set(Calendar.MONTH, 1);
         cal.set(Calendar.DAY_OF_MONTH, 1);
-        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         item.setCreated(cal.getTime());
-        item.setDescription(String.format("Item %s with price %s (created at %s)", item.getId(), item.getPrice(), item.getCreated()));
+        item.setDescription(String.format("Item %s with price %s (created at %s)", item.getId(), item.getPrice(), item.getCreated().getTime()));
         return item;
     }
 
