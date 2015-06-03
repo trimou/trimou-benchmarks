@@ -5,7 +5,7 @@ Running the benchmarks
 
 > $ ./benchmarks.sh
 
-to run benchmarks and generate a chart for `1.6.2.Final`, `1.7.3.Final` and `1.8.0-SNAPSHOT`, or
+to run benchmarks and generate a chart for `1.6.2.Final`, `1.7.3.Final` and `1.8.0.Final`, or
 
 > $ mvn package -Dversion.trimou=1.8.0-SNAPSHOT
 
