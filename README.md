@@ -18,4 +18,6 @@ for a specific Trimou version.
 Example Results
 ===============
 
+1 thread, Oracle jdk1.8.0_31
+
 ![Example results](trimou-microbenchmarks.png)
