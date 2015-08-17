@@ -5,9 +5,9 @@ Running the benchmarks
 
 > $ ./benchmarks.sh
 
-to run benchmarks and generate a chart for `1.6.2.Final`, `1.7.3.Final` and `1.8.0.Final`, or
+to run benchmarks and generate a chart for `1.6.2.Final`, `1.7.3.Final` and `1.8.1.Final`, or
 
-> $ mvn package -Dversion.trimou=1.8.0-SNAPSHOT
+> $ mvn package -Dversion.trimou=1.8.2-SNAPSHOT
 
 > $ java -jar target/trimou-benchmarks.jar -rf json -rff results.json
 
@@ -18,6 +18,6 @@ for a specific Trimou version.
 Example Results
 ===============
 
-1 thread, Oracle jdk1.8.0_31
+1 thread, Oracle jdk1.8.0_51
 
 ![Example results](trimou-microbenchmarks.png)
