@@ -14,7 +14,7 @@
     <version.trimou>1.7.3.Final</version.trimou>
     <version.junit>4.11</version.junit>
     <version.slf4j>1.7.10</version.slf4j>
-    <version.jmh>1.9.2</version.jmh>
+    <version.jmh>1.10.5</version.jmh>
     <version.xchart>2.5.0</version.xchart>
     <version.gson>2.3.1</version.gson>
   </properties>
