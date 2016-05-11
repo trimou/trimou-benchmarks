@@ -1,7 +1,7 @@
 #!/bin/sh
 
-#TRIMOU_VERSIONS="1.8.2.Final 1.8.3-SNAPSHOT";
-TRIMOU_VERSIONS="1.6.2.Final 1.7.3.Final 1.8.1.Final 1.8.2.Final";
+#TRIMOU_VERSIONS="2.0.0.Final 2.0.1-SNAPSHOT";
+TRIMOU_VERSIONS="1.6.2.Final 1.7.3.Final 1.8.4.Final 2.0.0.Final";
 
 # Set max to use Runtime.getRuntime().availableProcessors()
 THREADS="1"
